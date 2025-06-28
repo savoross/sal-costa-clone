@@ -1,10 +1,13 @@
+/// <reference lib="webworker" />
+interface SyncEvent extends ExtendableEvent { readonly tag: string }
+const sw = self as unknown as ServiceWorkerGlobalScope
 const CACHE_NAME = "sal-costa-v1.0.0"
 const STATIC_CACHE = "sal-costa-static-v1.0.0"
 const DYNAMIC_CACHE = "sal-costa-dynamic-v1.0.0"
 const IMAGE_CACHE = "sal-costa-images-v1.0.0"
 
 // Assets to cache immediately
-const STATIC_ASSETS = [
+const STATIC_ASSETS: string[] = [
   "/",
   "/about",
   "/work",
@@ -15,16 +18,21 @@ const STATIC_ASSETS = [
 ]
 
 // Network-first resources
-const NETWORK_FIRST = ["/api/", "/_next/static/chunks/"]
+const NETWORK_FIRST: string[] = ["/api/", "/_next/static/chunks/"]
 
 // Cache-first resources
-const CACHE_FIRST = ["/_next/static/", "/fonts/", "/icons/"]
+const CACHE_FIRST: string[] = ["/_next/static/", "/fonts/", "/icons/"]
 
 // Image domains to cache
-const IMAGE_DOMAINS = ["ext.same-assets.com", "ugc.same-assets.com", "images.unsplash.com", "source.unsplash.com"]
+const IMAGE_DOMAINS: string[] = [
+  "ext.same-assets.com",
+  "ugc.same-assets.com",
+  "images.unsplash.com",
+  "source.unsplash.com",
+]
 
 // Install event - cache static assets
-self.addEventListener("install", (event) => {
+sw.addEventListener("install", (event: ExtendableEvent) => {
   console.log("Service Worker: Installing...")
 
   event.waitUntil(
@@ -36,7 +44,7 @@ self.addEventListener("install", (event) => {
       })
       .then(() => {
         console.log("Service Worker: Static assets cached")
-        return self.skipWaiting()
+        return sw.skipWaiting()
       })
       .catch((error) => {
         console.error("Service Worker: Failed to cache static assets", error)
@@ -45,7 +53,7 @@ self.addEventListener("install", (event) => {
 })
 
 // Activate event - clean up old caches
-self.addEventListener("activate", (event) => {
+sw.addEventListener("activate", (event: ExtendableEvent) => {
   console.log("Service Worker: Activating...")
 
   event.waitUntil(
@@ -68,13 +76,13 @@ self.addEventListener("activate", (event) => {
       })
       .then(() => {
         console.log("Service Worker: Activated")
-        return self.clients.claim()
+        return sw.clients.claim()
       }),
   )
 })
 
 // Fetch event - implement caching strategies
-self.addEventListener("fetch", (event) => {
+sw.addEventListener("fetch", (event: FetchEvent) => {
   const { request } = event
   const url = new URL(request.url)
 
@@ -103,7 +111,7 @@ self.addEventListener("fetch", (event) => {
 })
 
 // Image caching strategy - Cache first with fallback
-async function handleImageRequest(request) {
+async function handleImageRequest(request: Request): Promise<Response> {
   try {
     const cache = await caches.open(IMAGE_CACHE)
     const cachedResponse = await cache.match(request)
@@ -127,7 +135,7 @@ async function handleImageRequest(request) {
 }
 
 // Static asset caching - Cache first
-async function handleStaticAsset(request) {
+async function handleStaticAsset(request: Request): Promise<Response> {
   try {
     const cache = await caches.open(STATIC_CACHE)
     const cachedResponse = await cache.match(request)
@@ -143,12 +151,13 @@ async function handleStaticAsset(request) {
     return response
   } catch (error) {
     console.log("Service Worker: Static asset request failed", error)
-    return caches.match(request)
+    const fallback = await caches.match(request)
+    return fallback || new Response("Not available", { status: 404 })
   }
 }
 
 // Network first strategy for dynamic content
-async function handleNetworkFirst(request) {
+async function handleNetworkFirst(request: Request): Promise<Response> {
   try {
     const response = await fetch(request)
     if (response.ok) {
@@ -167,7 +176,7 @@ async function handleNetworkFirst(request) {
 }
 
 // Navigation request handling with offline fallback
-async function handleNavigationRequest(request) {
+async function handleNavigationRequest(request: Request): Promise<Response> {
   try {
     const response = await fetch(request)
     if (response.ok) {
@@ -229,7 +238,7 @@ async function handleNavigationRequest(request) {
 }
 
 // Default caching strategy
-async function handleDefault(request) {
+async function handleDefault(request: Request): Promise<Response> {
   try {
     const response = await fetch(request)
     if (response.ok) {
@@ -244,7 +253,7 @@ async function handleDefault(request) {
 }
 
 // Background image update
-async function updateImageInBackground(request, cache) {
+async function updateImageInBackground(request: Request, cache: Cache): Promise<void> {
   try {
     const response = await fetch(request)
     if (response.ok) {
@@ -256,7 +265,7 @@ async function updateImageInBackground(request, cache) {
 }
 
 // Helper functions
-function isImageRequest(request) {
+function isImageRequest(request: Request): boolean {
   const url = new URL(request.url)
   return (
     IMAGE_DOMAINS.some((domain) => url.hostname.includes(domain)) ||
@@ -265,26 +274,28 @@ function isImageRequest(request) {
   )
 }
 
-function isStaticAsset(request) {
+function isStaticAsset(request: Request): boolean {
   const url = new URL(request.url)
   return (
     CACHE_FIRST.some((path) => url.pathname.startsWith(path)) || /\.(js|css|woff|woff2|ttf|eot)$/i.test(url.pathname)
   )
 }
 
-function isNetworkFirst(request) {
+function isNetworkFirst(request: Request): boolean {
   const url = new URL(request.url)
   return NETWORK_FIRST.some((path) => url.pathname.startsWith(path))
 }
 
-function isNavigationRequest(request) {
+function isNavigationRequest(request: Request): boolean {
   return request.mode === "navigate"
 }
 
 // Background sync for failed requests
-self.addEventListener("sync", (event) => {
-  if (event.tag === "background-sync") {
-    event.waitUntil(doBackgroundSync())
+// 'sync' is not yet part of ServiceWorkerGlobalScopeEventMap
+sw.addEventListener("sync", (event: any) => {
+  const syncEvent = event as SyncEvent
+  if (syncEvent.tag === "background-sync") {
+    syncEvent.waitUntil(doBackgroundSync())
   }
 })
 
@@ -294,7 +305,7 @@ async function doBackgroundSync() {
 }
 
 // Push notification handling
-self.addEventListener("push", (event) => {
+sw.addEventListener("push", (event: PushEvent) => {
   if (event.data) {
     const data = event.data.json()
     const options = {
@@ -308,6 +319,6 @@ self.addEventListener("push", (event) => {
       },
     }
 
-    event.waitUntil(self.registration.showNotification(data.title, options))
+    event.waitUntil(sw.registration.showNotification(data.title, options))
   }
 })

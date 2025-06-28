@@ -4,6 +4,8 @@
   "private": true,
   "scripts": {
     "build": "next build",
+    "build:sw": "tsc -p tsconfig.sw.json",
+    "prebuild": "pnpm run build:sw",
     "dev": "next dev -H 0.0.0.0 --turbopack",
     "format": "bunx biome format --write",
     "lint": "bunx biome lint --write && bunx tsc --noEmit",
