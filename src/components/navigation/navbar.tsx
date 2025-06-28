@@ -43,7 +43,7 @@ export function Navbar() {
       <header id="navbar-wrapper" className="navbar-wrapper">
         <div className="navbar-side">
           <Link href="/" data-cursor-hover>
-            <span className={`text-large nav-details ${isMenuOpen ? "text-secondary" : ""}`}>Sal Costa</span>
+            <span className={`text-large nav-details ${isMenuOpen ? "text-secondary" : ""}`}>SALI COST</span>
           </Link>
         </div>
         <div className="navbar-side flex items-center gap-4">
@@ -51,7 +51,7 @@ export function Navbar() {
           <button
             className={`menu-button ${isMenuOpen ? "open" : ""}`}
             onClick={toggleMenu}
-            aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+            aria-label={isMenuOpen ? "Закрыть меню" : "Открыть меню"}
             aria-expanded={isMenuOpen}
             data-cursor-hover
           >
@@ -62,7 +62,7 @@ export function Navbar() {
         </div>
       </header>
 
-      <div id="navmenu-wrapper" className={isMenuOpen ? "open" : ""} aria-modal="true" aria-label="Navigation menu">
+      <div id="navmenu-wrapper" className={isMenuOpen ? "open" : ""} aria-modal="true" aria-label="Навигационное меню">
         <nav className="navmenu">
           <div className="navlink-wrapper">
             <motion.div
@@ -76,7 +76,7 @@ export function Navbar() {
               animate={isMenuOpen ? { y: 0 } : { y: "100%" }}
               transition={{ duration: 0.5, delay: 0 * 0.1 }}
             >
-              <span className="navlink-text">Home</span>
+              <span className="navlink-text">Главная</span>
             </motion.div>
           </div>
           <div className="navlink-wrapper">
@@ -90,7 +90,7 @@ export function Navbar() {
               animate={isMenuOpen ? { y: 0 } : { y: "100%" }}
               transition={{ duration: 0.5, delay: 1 * 0.1 }}
             >
-              <span className="navlink-text">Work</span>
+              <span className="navlink-text">Работы</span>
             </motion.div>
           </div>
           <div className="navlink-wrapper">
@@ -104,7 +104,7 @@ export function Navbar() {
               animate={isMenuOpen ? { y: 0 } : { y: "100%" }}
               transition={{ duration: 0.5, delay: 2 * 0.1 }}
             >
-              <span className="navlink-text">About</span>
+              <span className="navlink-text">О нас</span>
             </motion.div>
           </div>
           <div className="navlink-wrapper">
@@ -118,7 +118,7 @@ export function Navbar() {
               animate={isMenuOpen ? { y: 0 } : { y: "100%" }}
               transition={{ duration: 0.5, delay: 3 * 0.1 }}
             >
-              <span className="navlink-text">Contact</span>
+              <span className="navlink-text">Контакты</span>
             </motion.div>
           </div>
           <motion.div

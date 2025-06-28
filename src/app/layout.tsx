@@ -1,35 +1,35 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Plus_Jakarta_Sans } from "next/font/google"
+import { Inter } from "next/font/google"
 import "./globals.css"
 import { ClientBody } from "./ClientBody"
 
-const plusJakartaSans = Plus_Jakarta_Sans({
-  subsets: ["latin"],
+const inter = Inter({
+  subsets: ["latin", "cyrillic"],
   display: "swap",
-  variable: "--font-plus-jakarta-sans",
-  weight: ["300", "400", "500", "600", "700", "800"],
+  variable: "--font-inter",
+  weight: ["300", "400", "500", "600", "700", "800", "900"],
   preload: true,
 })
 
 export const metadata: Metadata = {
-  title: "Sal Costa - Full Stack Frontend Developer & Designer",
-  description: "Experienced curator of digital user experiences. Specializing in React and web platforms.",
-  keywords: ["frontend developer", "web designer", "react developer", "ui/ux designer"],
-  authors: [{ name: "Sal Costa" }],
+  title: "SALI COST - Frontend Разработчик и Дизайнер",
+  description: "Опытный куратор цифровых пользовательских интерфейсов. Специализируемся на React и веб-платформах.",
+  keywords: ["frontend разработчик", "веб дизайнер", "react разработчик", "ui/ux дизайнер"],
+  authors: [{ name: "SALI COST" }],
   viewport: "width=device-width, initial-scale=1",
-  themeColor: "#f7f4ed",
+  themeColor: "#faf8f3",
   manifest: "/manifest.json",
   openGraph: {
-    title: "Sal Costa - Full Stack Frontend Developer & Designer",
-    description: "Experienced curator of digital user experiences. Specializing in React and web platforms.",
+    title: "SALI COST - Frontend Разработчик и Дизайнер",
+    description: "Опытный куратор цифровых пользовательских интерфейсов. Специализируемся на React и веб-платформах.",
     type: "website",
-    locale: "en_US",
+    locale: "ru_RU",
   },
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
-    title: "Sal Costa",
+    title: "SALI COST",
   },
 }
 
@@ -39,7 +39,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="ru" suppressHydrationWarning>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
@@ -50,9 +50,9 @@ export default function RootLayout({
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-        <meta name="apple-mobile-web-app-title" content="Sal Costa" />
+        <meta name="apple-mobile-web-app-title" content="SALI COST" />
       </head>
-      <body className={`${plusJakartaSans.variable} font-sans antialiased`}>
+      <body className={`${inter.variable} font-sans antialiased`}>
         <ClientBody>{children}</ClientBody>
       </body>
     </html>

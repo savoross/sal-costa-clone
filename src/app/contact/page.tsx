@@ -2,13 +2,13 @@
 
 import { Navbar } from "@/components/navigation/navbar"
 import { CursorFollower } from "@/components/cursor/cursor-follower"
-import { BlobBackground } from "@/components/background/blob-background"
+import { WebGLFallbackBackground } from "@/components/background/webgl-fallback-background"
 import { SkillsMarquee } from "@/components/marquee/skills-marquee"
 import { motion } from "framer-motion"
 import { useEffect, useState } from "react"
 import { ContactClient } from "./contact-client"
 
-const skills = ["Web Design", "UX Design", "Frontend Development", "Web Design", "UX Design", "Frontend Development"]
+const skills = ["Веб Дизайн", "UX Дизайн", "Frontend Разработка", "Веб Дизайн", "UX Дизайн", "Frontend Разработка"]
 
 export default function ContactPage() {
   const [isLoaded, setIsLoaded] = useState(false)
@@ -20,7 +20,7 @@ export default function ContactPage() {
   return (
     <div className="page-wrapper">
       <CursorFollower />
-      <BlobBackground />
+      <WebGLFallbackBackground />
       <Navbar />
 
       <main className="w-full max-w-screen-xl mx-auto py-24 px-6">
@@ -30,7 +30,7 @@ export default function ContactPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          Get In Touch
+          Связаться с нами
         </motion.h1>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
@@ -40,31 +40,32 @@ export default function ContactPage() {
             transition={{ duration: 0.5, delay: 0.1 }}
           >
             <p className="text-lg mb-6">
-              I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.
+              Мы всегда открыты для обсуждения новых проектов, креативных идей или возможностей стать частью вашего
+              видения.
             </p>
 
             <div className="mb-8">
-              <h2 className="text-xl font-semibold mb-3">Contact Details</h2>
+              <h2 className="text-xl font-semibold mb-3">Контактные данные</h2>
               <ul className="space-y-3">
                 <li className="flex items-center gap-3">
                   <span className="text-secondary">Email:</span>
                   <a
-                    href="mailto:hello@salcosta.dev"
+                    href="mailto:hello@salicost.dev"
                     className="hover:text-secondary transition-colors"
                     data-cursor-hover
                   >
-                    hello@salcosta.dev
+                    hello@salicost.dev
                   </a>
                 </li>
                 <li className="flex items-center gap-3">
-                  <span className="text-secondary">Location:</span>
-                  <span>Barcelona, Spain</span>
+                  <span className="text-secondary">Местоположение:</span>
+                  <span>Москва, Россия</span>
                 </li>
               </ul>
             </div>
 
             <div>
-              <h2 className="text-xl font-semibold mb-3">Connect</h2>
+              <h2 className="text-xl font-semibold mb-3">Социальные сети</h2>
               <div className="flex gap-4">
                 <a
                   href="https://www.behance.net/salcc"

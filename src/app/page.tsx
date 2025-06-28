@@ -7,9 +7,12 @@ import { CursorFollower } from "@/components/cursor/cursor-follower"
 import { RealProgressLoader } from "@/components/loading/real-progress-loader"
 import { HomeClient } from "./home-client"
 
-// Lazy load non-critical components
-const BlobBackground = dynamic(
-  () => import("@/components/background/blob-background").then((mod) => ({ default: mod.BlobBackground })),
+// Lazy load WebGL background with fallback
+const WebGLFallbackBackground = dynamic(
+  () =>
+    import("@/components/background/webgl-fallback-background").then((mod) => ({
+      default: mod.WebGLFallbackBackground,
+    })),
   {
     ssr: false,
   },
@@ -22,14 +25,14 @@ const SkillsMarquee = dynamic(
   },
 )
 
-const skills = ["Web Design", "UX Design", "Frontend Development", "React Development", "TypeScript", "UI/UX Design"]
+const skills = ["UX Дизайн", "UI Дизайн", "Frontend Разработка", "React Разработка", "TypeScript", "Веб Дизайн"]
 
 // Optimized asset preloading - only critical images
 const CRITICAL_ASSETS = {
   images: [
     "https://ext.same-assets.com/4083826418/1092142111.jpeg", // About page hero
   ],
-  fonts: ["Plus Jakarta Sans"],
+  fonts: ["Inter"],
   scripts: [],
 }
 
@@ -47,7 +50,7 @@ export default function Page() {
         images={CRITICAL_ASSETS.images}
         fonts={CRITICAL_ASSETS.fonts}
         scripts={CRITICAL_ASSETS.scripts}
-        minLoadTime={1500} // Reduced for better UX
+        minLoadTime={1500}
       />
     )
   }
@@ -56,7 +59,7 @@ export default function Page() {
     <div className="page-wrapper home">
       <CursorFollower />
       <Suspense fallback={null}>
-        <BlobBackground />
+        <WebGLFallbackBackground />
       </Suspense>
       <Navbar />
       <HomeClient />

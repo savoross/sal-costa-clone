@@ -4,8 +4,8 @@
 
 @layer base {
   :root {
-    /* Updated color scheme to match original */
-    --background: 42 20% 96%; /* Warmer cream background */
+    /* Enhanced color scheme for WebGL particles */
+    --background: 42 20% 97%; /* Lighter cream background */
     --foreground: 20 14% 8%; /* Deeper black */
 
     --card: 42 20% 96%;
@@ -35,15 +35,21 @@
 
     --radius: 0.375rem;
 
-    /* Custom loader and accent colors */
-    --loader-bg: #f7f4ed;
-    --loader-accent: #d4654a;
-    --warm-cream: #f7f4ed;
+    /* Enhanced WebGL particle colors */
+    --loader-bg: #faf8f3;
+    --loader-accent: #ff9999;
+    --warm-cream: #faf8f3;
     --deep-black: #1a1612;
-    --coral-accent: #d4654a;
+    --coral-accent: #ff9999;
+    --blob-pink: rgba(255, 182, 193, 0.4);
+    --blob-coral: rgba(255, 160, 160, 0.5);
+    --blob-peach: rgba(255, 218, 185, 0.4);
+    --particle-glow: rgba(255, 153, 153, 0.8);
+    --webgl-bg-light: linear-gradient(135deg, #faf8f3 0%, #f7f4ed 100%);
   }
 
   .dark {
+    /* Dark theme with enhanced WebGL colors */
     --background: 20 14% 8%;
     --foreground: 42 20% 96%;
 
@@ -72,8 +78,17 @@
     --input: 20 14% 20%;
     --ring: 42 20% 96%;
 
+    /* Dark theme WebGL colors */
     --loader-bg: #1a1612;
-    --loader-accent: #d4654a;
+    --loader-accent: #ff6b6b;
+    --warm-cream: #faf8f3;
+    --deep-black: #1a1612;
+    --coral-accent: #ff6b6b;
+    --blob-pink: rgba(255, 107, 107, 0.3);
+    --blob-coral: rgba(255, 99, 132, 0.4);
+    --blob-peach: rgba(255, 159, 64, 0.3);
+    --particle-glow: rgba(255, 107, 107, 0.9);
+    --webgl-bg-dark: linear-gradient(135deg, #1a1612 0%, #0f0d0a 100%);
   }
 }
 
@@ -88,7 +103,7 @@
 
   body {
     @apply bg-background text-foreground;
-    font-family: var(--font-plus-jakarta-sans);
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     cursor: none;
     font-feature-settings: "kern" 1, "liga" 1;
     text-rendering: optimizeLegibility;
@@ -96,18 +111,12 @@
     -moz-osx-font-smoothing: grayscale;
   }
 
-  /* Optimize font loading */
-  @font-face {
-    font-family: "Plus Jakarta Sans";
-    font-style: normal;
-    font-weight: 300 800;
-    font-display: swap;
-    src: url("/fonts/plus-jakarta-sans-variable.woff2") format("woff2");
-  }
+  /* Import Inter font with cyrillic support */
+  @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap&subset=latin,cyrillic");
 }
 
 @layer components {
-  /* Cursor */
+  /* Enhanced cursor */
   .cursor-follower {
     @apply fixed top-0 left-0 w-6 h-6 rounded-full pointer-events-none z-50;
     background: var(--coral-accent);
@@ -126,15 +135,32 @@
     opacity: 0;
   }
 
-  /* Navigation - Refined styling */
+  /* WebGL Canvas styling */
+  .webgl-particle-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .dark .webgl-particle-canvas {
+    background: var(--webgl-bg-dark) !important;
+  }
+
+  /* Enhanced navigation */
   .navbar-wrapper {
     @apply fixed top-0 left-0 w-full p-4 md:p-6 flex justify-between items-center z-40;
-    backdrop-filter: blur(10px);
-    background: rgba(247, 244, 237, 0.8);
+    backdrop-filter: blur(20px);
+    background: rgba(250, 248, 243, 0.85);
+    border-bottom: 1px solid rgba(26, 22, 18, 0.05);
   }
 
   .dark .navbar-wrapper {
-    background: rgba(26, 22, 18, 0.8);
+    background: rgba(26, 22, 18, 0.85);
+    border-bottom: 1px solid rgba(247, 244, 237, 0.05);
   }
 
   .navbar-side {
@@ -142,15 +168,17 @@
   }
 
   .nav-details {
-    @apply text-base md:text-lg font-medium tracking-tight;
+    @apply text-base md:text-lg font-bold tracking-tight;
     color: var(--deep-black);
+    font-family: "Inter", sans-serif;
+    font-weight: 800;
   }
 
   .dark .nav-details {
     color: var(--warm-cream);
   }
 
-  /* Menu Button - More refined */
+  /* Enhanced menu button */
   .menu-button {
     @apply relative w-8 h-8 flex flex-col justify-center items-center gap-1 cursor-none z-50;
   }
@@ -176,10 +204,11 @@
     @apply transform -rotate-45 -translate-y-1.5;
   }
 
-  /* Navigation Menu - Enhanced */
+  /* Enhanced navigation menu */
   #navmenu-wrapper {
     @apply fixed top-0 left-0 w-full h-0 overflow-hidden z-30 transition-all duration-700 ease-in-out;
     background: var(--warm-cream);
+    backdrop-filter: blur(20px);
   }
 
   .dark #navmenu-wrapper {
@@ -199,10 +228,11 @@
   }
 
   .navlink {
-    @apply text-3xl md:text-6xl lg:text-7xl font-bold py-2 cursor-none relative transition-all duration-300 ease-out;
-    font-weight: 700;
+    @apply text-3xl md:text-6xl lg:text-7xl font-black py-2 cursor-none relative transition-all duration-300 ease-out;
+    font-weight: 900;
     letter-spacing: -0.02em;
     color: var(--deep-black);
+    font-family: "Inter", sans-serif;
   }
 
   .dark .navlink {
@@ -246,14 +276,10 @@
     color: var(--warm-cream);
   }
 
-  /* Page Layout - Optimized */
+  /* Enhanced page layout */
   .page-wrapper {
     @apply min-h-screen flex flex-col items-center justify-center p-4 md:p-6 relative;
-    background: var(--warm-cream);
-  }
-
-  .dark .page-wrapper {
-    background: var(--deep-black);
+    background: transparent; /* Let the WebGL background handle this */
   }
 
   .home-content-wrapper {
@@ -268,6 +294,7 @@
     @apply text-lg md:text-xl font-medium border-b border-transparent hover:border-current transition-all duration-300 cursor-none;
     color: var(--deep-black);
     letter-spacing: -0.01em;
+    font-family: "Inter", sans-serif;
   }
 
   .dark .home-link {
@@ -278,20 +305,21 @@
     color: var(--coral-accent);
   }
 
-  /* Logo - Refined typography */
+  /* Enhanced SALI COST logo */
   .logo-wrapper {
     @apply relative w-full max-w-5xl mx-auto;
   }
 
-  .logo-text {
-    @apply text-6xl md:text-8xl lg:text-9xl font-bold flex flex-wrap justify-center;
-    font-weight: 800;
-    letter-spacing: -0.03em;
-    line-height: 0.9;
+  .sali-cost-logo {
+    @apply text-6xl md:text-8xl lg:text-9xl font-black flex flex-wrap justify-center;
+    font-weight: 900;
+    letter-spacing: -0.04em;
+    line-height: 0.85;
     color: var(--deep-black);
+    font-family: "Inter", sans-serif;
   }
 
-  .dark .logo-text {
+  .dark .sali-cost-logo {
     color: var(--warm-cream);
   }
 
@@ -299,24 +327,25 @@
     @apply inline-block;
   }
 
-  /* Marquee - Subtle styling */
+  /* Enhanced marquee */
   .marquee-wrapper {
     @apply absolute bottom-0 left-0 w-full overflow-hidden py-3 border-t;
     border-color: rgba(26, 22, 18, 0.1);
-    background: rgba(247, 244, 237, 0.8);
-    backdrop-filter: blur(10px);
+    background: rgba(250, 248, 243, 0.9);
+    backdrop-filter: blur(20px);
   }
 
   .dark .marquee-wrapper {
     border-color: rgba(247, 244, 237, 0.1);
-    background: rgba(26, 22, 18, 0.8);
+    background: rgba(26, 22, 18, 0.9);
   }
 
   .marquee-content {
     @apply flex gap-6 whitespace-nowrap text-sm;
-    animation: marquee 25s linear infinite;
+    animation: marquee 30s linear infinite;
     color: var(--deep-black);
     opacity: 0.7;
+    font-family: "Inter", sans-serif;
   }
 
   .dark .marquee-content {
@@ -341,19 +370,7 @@
     }
   }
 
-  /* Blob Background - Optimized */
-  .blob-container {
-    @apply fixed inset-0 overflow-hidden pointer-events-none z-0;
-  }
-
-  .blob {
-    @apply absolute rounded-full opacity-30;
-    background: var(--coral-accent);
-    filter: blur(40px);
-    will-change: transform;
-  }
-
-  /* Theme Toggle */
+  /* Enhanced theme toggle */
   .switch-wrapper {
     @apply w-8 h-8 flex items-center justify-center rounded-full transition-all duration-300 cursor-none;
     color: var(--deep-black);
@@ -364,20 +381,21 @@
   }
 
   .switch-wrapper:hover {
-    background: rgba(212, 101, 74, 0.1);
+    background: rgba(255, 153, 153, 0.1);
     color: var(--coral-accent);
   }
 
-  /* Content sections - Better spacing and typography */
+  /* Enhanced content sections */
   .content-section {
     @apply py-16 md:py-24;
   }
 
   .section-title {
     @apply text-3xl md:text-4xl lg:text-5xl font-bold mb-8 md:mb-12;
-    font-weight: 700;
+    font-weight: 800;
     letter-spacing: -0.02em;
     color: var(--deep-black);
+    font-family: "Inter", sans-serif;
   }
 
   .dark .section-title {
@@ -388,27 +406,30 @@
     @apply text-base md:text-lg leading-relaxed;
     color: var(--deep-black);
     opacity: 0.8;
+    font-family: "Inter", sans-serif;
   }
 
   .dark .prose-content {
     color: var(--warm-cream);
   }
 
-  /* Form styling */
+  /* Enhanced form styling */
   .form-input {
     @apply w-full px-4 py-3 rounded-lg border border-border bg-background/50 focus:outline-none focus:ring-2 focus:ring-secondary transition-all duration-300;
     backdrop-filter: blur(10px);
+    font-family: "Inter", sans-serif;
   }
 
   .form-button {
     @apply px-6 py-3 rounded-lg font-medium transition-all duration-300 cursor-none;
     background: var(--coral-accent);
     color: var(--warm-cream);
+    font-family: "Inter", sans-serif;
   }
 
   .form-button:hover {
     transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(212, 101, 74, 0.3);
+    box-shadow: 0 4px 12px rgba(255, 153, 153, 0.3);
   }
 
   .form-button:disabled {
@@ -417,7 +438,7 @@
     box-shadow: none;
   }
 
-  /* Project cards - Enhanced */
+  /* Enhanced project cards */
   .project-card {
     @apply group relative rounded-xl overflow-hidden cursor-none bg-background/30 hover:bg-background/50 border border-border/50 transition-all duration-500;
     backdrop-filter: blur(10px);
@@ -432,12 +453,10 @@
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
   }
 
-  /* Performance optimizations */
-  .will-change-transform {
-    will-change: transform;
-  }
-
-  .gpu-accelerated {
+  /* WebGL performance optimizations */
+  .webgl-optimized {
+    contain: layout style paint;
+    will-change: transform, opacity;
     transform: translateZ(0);
     backface-visibility: hidden;
     perspective: 1000px;
@@ -446,14 +465,17 @@
   /* Reduced motion support */
   @media (prefers-reduced-motion: reduce) {
     .cursor-follower,
-    .marquee-content,
-    .blob {
+    .marquee-content {
       animation: none !important;
       transition: none !important;
     }
 
     .logo-letter {
       animation: none !important;
+    }
+
+    .webgl-particle-canvas {
+      display: none !important;
     }
   }
 
@@ -462,19 +484,42 @@
     content-visibility: auto;
     contain-intrinsic-size: 200px;
   }
-}
 
-/* Critical CSS inlined for faster loading */
-@media (max-width: 768px) {
-  .logo-text {
-    @apply text-5xl;
+  /* Enhanced responsive design */
+  @media (max-width: 768px) {
+    .sali-cost-logo {
+      @apply text-5xl;
+    }
+
+    .navlink {
+      @apply text-2xl;
+    }
+
+    .section-title {
+      @apply text-2xl;
+    }
   }
 
-  .navlink {
-    @apply text-2xl;
+  /* High performance mode for low-end devices */
+  @media (max-width: 480px) {
+    .webgl-particle-canvas {
+      display: none;
+    }
   }
 
-  .section-title {
-    @apply text-2xl;
+  /* Accessibility improvements */
+  @media (prefers-contrast: high) {
+    .webgl-particle-canvas {
+      opacity: 0.8 !important;
+    }
+  }
+
+  /* WebGL fallback styling */
+  .webgl-fallback {
+    background: var(--webgl-bg-light);
+  }
+
+  .dark .webgl-fallback {
+    background: var(--webgl-bg-dark);
   }
 }

@@ -1,51 +1,56 @@
 import { Navbar } from "@/components/navigation/navbar"
 import { CursorFollower } from "@/components/cursor/cursor-follower"
-import { BlobBackground } from "@/components/background/blob-background"
+import { WebGLFallbackBackground } from "@/components/background/webgl-fallback-background"
 import { SkillsMarquee } from "@/components/marquee/skills-marquee"
 import { WorkClient } from "./work-client"
 
-const skills = ["Web Design", "UX Design", "Frontend Development", "Web Design", "UX Design", "Frontend Development"]
+const skills = ["Веб Дизайн", "UX Дизайн", "Frontend Разработка", "Веб Дизайн", "UX Дизайн", "Frontend Разработка"]
 
 export const projects = [
   {
     id: 1,
     title: "Arcex",
-    description: "UX/UI Design & Development",
+    description: "UX/UI Дизайн и Разработка",
     imageUrl: "https://ext.same-assets.com/4083826418/779204435.png",
-    tags: ["UI Design", "Frontend Development"],
+    tags: ["UI Дизайн", "Frontend Разработка"],
     year: "2024",
+    slug: "arcex",
   },
   {
     id: 2,
     title: "Raindrop",
-    description: "Web Design & Development",
+    description: "Веб Дизайн и Разработка",
     imageUrl: "https://ext.same-assets.com/4083826418/354791880.png",
-    tags: ["Web Design", "Frontend Development"],
+    tags: ["Веб Дизайн", "Frontend Разработка"],
     year: "2023",
+    slug: "raindrop",
   },
   {
     id: 3,
     title: "Finterest",
-    description: "UX/UI Design & Development",
+    description: "UX/UI Дизайн и Разработка",
     imageUrl: "https://ext.same-assets.com/4083826418/1936394737.png",
-    tags: ["UI Design", "Frontend Development"],
+    tags: ["UI Дизайн", "Frontend Разработка"],
     year: "2023",
+    slug: "finterest",
   },
   {
     id: 4,
     title: "Portfolio",
-    description: "UX/UI Design & Development",
+    description: "UX/UI Дизайн и Разработка",
     imageUrl: "https://ext.same-assets.com/4083826418/3629516342.png",
-    tags: ["UI Design", "Frontend Development"],
+    tags: ["UI Дизайн", "Frontend Разработка"],
     year: "2022",
+    slug: "portfolio",
   },
   {
     id: 5,
     title: "Venture Out",
-    description: "Web Design & Development",
+    description: "Веб Дизайн и Разработка",
     imageUrl: "https://ext.same-assets.com/4083826418/843157461.png",
-    tags: ["Web Design", "Frontend Development"],
+    tags: ["Веб Дизайн", "Frontend Разработка"],
     year: "2022",
+    slug: "venture-out",
   },
 ]
 
@@ -53,7 +58,7 @@ export default function WorkPage() {
   return (
     <div className="page-wrapper">
       <CursorFollower />
-      <BlobBackground />
+      <WebGLFallbackBackground />
       <Navbar />
       <WorkClient projects={projects} />
       <SkillsMarquee skills={skills} />

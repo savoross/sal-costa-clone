@@ -56,7 +56,7 @@ export function ContactClient() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        Get In Touch
+        Связаться с нами
       </motion.h1>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
@@ -66,31 +66,32 @@ export function ContactClient() {
           transition={{ duration: 0.5, delay: 0.1 }}
         >
           <p className="text-lg mb-6">
-            I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.
+            Мы всегда открыты для обсуждения новых проектов, креативных идей или возможностей стать частью вашего
+            видения.
           </p>
 
           <div className="mb-8">
-            <h2 className="text-xl font-semibold mb-3">Contact Details</h2>
+            <h2 className="text-xl font-semibold mb-3">Контактные данные</h2>
             <ul className="space-y-3">
               <li className="flex items-center gap-3">
                 <span className="text-secondary">Email:</span>
                 <a
-                  href="mailto:hello@salcosta.dev"
+                  href="mailto:hello@salicost.dev"
                   className="hover:text-secondary transition-colors"
                   data-cursor-hover
                 >
-                  hello@salcosta.dev
+                  hello@salicost.dev
                 </a>
               </li>
               <li className="flex items-center gap-3">
-                <span className="text-secondary">Location:</span>
-                <span>Barcelona, Spain</span>
+                <span className="text-secondary">Местоположение:</span>
+                <span>Москва, Россия</span>
               </li>
             </ul>
           </div>
 
           <div>
-            <h2 className="text-xl font-semibold mb-3">Connect</h2>
+            <h2 className="text-xl font-semibold mb-3">Социальные сети</h2>
             <div className="flex gap-4">
               <a
                 href="https://www.behance.net/salcc"
@@ -122,7 +123,7 @@ export function ContactClient() {
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
               <label htmlFor="name" className="block mb-2 font-medium">
-                Name
+                Имя
               </label>
               <input
                 type="text"
@@ -154,7 +155,7 @@ export function ContactClient() {
 
             <div>
               <label htmlFor="subject" className="block mb-2 font-medium">
-                Subject
+                Тема
               </label>
               <input
                 type="text"
@@ -170,7 +171,7 @@ export function ContactClient() {
 
             <div>
               <label htmlFor="message" className="block mb-2 font-medium">
-                Message
+                Сообщение
               </label>
               <textarea
                 id="message"
@@ -192,7 +193,7 @@ export function ContactClient() {
               }`}
               data-cursor-hover
             >
-              {isSubmitting ? "Sending..." : isSubmitted ? "Message Sent!" : "Send Message"}
+              {isSubmitting ? "Отправка..." : isSubmitted ? "Сообщение отправлено!" : "Отправить сообщение"}
             </button>
           </form>
         </motion.div>
