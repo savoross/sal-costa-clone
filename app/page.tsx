@@ -1,6 +1,6 @@
 "use client"
 
-import { CursorFollower } from "../src/components/cursor-follower"
+import { CursorFollower } from "../src/components/cursor/cursor-follower"
 
 export default function SyntheticV0PageForDeployment() {
   return <CursorFollower />
