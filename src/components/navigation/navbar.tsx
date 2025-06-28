@@ -1,49 +1,49 @@
-"use client";
+"use client"
 
-import { useEffect, useState } from "react";
-import { ThemeToggle } from "../theme/theme-toggle";
-import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
-import { motion } from "framer-motion";
+import type React from "react"
+
+import { useEffect, useState } from "react"
+import { ThemeToggle } from "../theme/theme-toggle"
+import Link from "next/link"
+import { usePathname, useRouter } from "next/navigation"
+import { motion } from "framer-motion"
 
 export function Navbar() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const pathname = usePathname();
-  const router = useRouter();
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const pathname = usePathname()
+  const router = useRouter()
 
   // Close menu when route changes
   useEffect(() => {
-    setIsMenuOpen(false);
-  }, []);
+    setIsMenuOpen(false)
+  }, [])
 
   // Prevent scroll when menu is open
   useEffect(() => {
     if (isMenuOpen) {
-      document.body.style.overflow = "hidden";
+      document.body.style.overflow = "hidden"
     } else {
-      document.body.style.overflow = "";
+      document.body.style.overflow = ""
     }
     return () => {
-      document.body.style.overflow = "";
-    };
-  }, [isMenuOpen]);
+      document.body.style.overflow = ""
+    }
+  }, [isMenuOpen])
 
   const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
+    setIsMenuOpen(!isMenuOpen)
+  }
 
   const handleNavigation = (path: string) => {
-    router.push(path);
-  };
+    router.push(path)
+  }
 
   return (
     <>
       <header id="navbar-wrapper" className="navbar-wrapper">
         <div className="navbar-side">
           <Link href="/" data-cursor-hover>
-            <span className={`text-large nav-details ${isMenuOpen ? "text-secondary" : ""}`}>
-              Sal Costa
-            </span>
+            <span className={`text-large nav-details ${isMenuOpen ? "text-secondary" : ""}`}>Sal Costa</span>
           </Link>
         </div>
         <div className="navbar-side flex items-center gap-4">
@@ -151,5 +151,8 @@ export function Navbar() {
         </nav>
       </div>
     </>
-  );
+  )
 }
+
+// Named export for compatibility
+export { Navbar as default }

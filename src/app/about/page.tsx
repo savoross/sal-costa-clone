@@ -1,27 +1,21 @@
-"use client";
+"use client"
 
-import { Navbar } from "@/components/navigation/navbar";
-import { CursorFollower } from "@/components/cursor/cursor-follower";
-import { BlobBackground } from "@/components/background/blob-background";
-import { SkillsMarquee } from "@/components/marquee/skills-marquee";
-import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { Navbar } from "@/components/navigation/navbar"
+import { CursorFollower } from "@/components/cursor/cursor-follower"
+import { BlobBackground } from "@/components/background/blob-background"
+import { SkillsMarquee } from "@/components/marquee/skills-marquee"
+import { motion } from "framer-motion"
+import { useEffect, useState } from "react"
+import { AboutClient } from "./about-client"
 
-const skills = [
-  "Web Design",
-  "UX Design",
-  "Frontend Development",
-  "Web Design",
-  "UX Design",
-  "Frontend Development",
-];
+const skills = ["Web Design", "UX Design", "Frontend Development", "Web Design", "UX Design", "Frontend Development"]
 
 export default function AboutPage() {
-  const [isLoaded, setIsLoaded] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false)
 
   useEffect(() => {
-    setIsLoaded(true);
-  }, []);
+    setIsLoaded(true)
+  }, [])
 
   return (
     <div className="page-wrapper">
@@ -40,16 +34,20 @@ export default function AboutPage() {
             <h1 className="text-4xl md:text-5xl font-bold mb-8">About Me</h1>
             <div className="prose dark:prose-invert max-w-none">
               <p className="text-lg mb-4">
-                I'm Sal Costa, a Frontend Developer and Designer with over 5 years of experience crafting digital experiences that blend creativity with technical precision.
+                I'm Sal Costa, a Frontend Developer and Designer with over 5 years of experience crafting digital
+                experiences that blend creativity with technical precision.
               </p>
               <p className="mb-4">
-                My approach combines intuitive user interfaces with clean, efficient code to create websites and applications that not only look beautiful but perform flawlessly.
+                My approach combines intuitive user interfaces with clean, efficient code to create websites and
+                applications that not only look beautiful but perform flawlessly.
               </p>
               <p className="mb-4">
-                I specialize in React ecosystems, UI/UX design, and animation, bringing brands and ideas to life through thoughtful digital design and development.
+                I specialize in React ecosystems, UI/UX design, and animation, bringing brands and ideas to life through
+                thoughtful digital design and development.
               </p>
               <p className="mb-4">
-                When I'm not coding or designing, you'll find me exploring new design trends, experimenting with animations, or contributing to open source projects.
+                When I'm not coding or designing, you'll find me exploring new design trends, experimenting with
+                animations, or contributing to open source projects.
               </p>
             </div>
 
@@ -102,7 +100,8 @@ export default function AboutPage() {
         </div>
       </main>
 
+      <AboutClient />
       <SkillsMarquee skills={skills} />
     </div>
-  );
+  )
 }

@@ -1,31 +1,29 @@
-"use client";
+"use client"
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react"
 
 interface SkillsMarqueeProps {
-  skills: string[];
+  skills: string[]
 }
 
 export function SkillsMarquee({ skills }: SkillsMarqueeProps) {
-  const marqueeRef = useRef<HTMLDivElement>(null);
+  const marqueeRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    const marqueeContent = marqueeRef.current;
-    if (!marqueeContent) return;
+    const marqueeContent = marqueeRef.current
+    if (!marqueeContent) return
 
     // Clone the content to create the continuous effect
     const cloneContent = () => {
-      const clonedItems = Array.from(marqueeContent.children).map(child =>
-        child.cloneNode(true) as HTMLElement
-      );
+      const clonedItems = Array.from(marqueeContent.children).map((child) => child.cloneNode(true) as HTMLElement)
 
-      clonedItems.forEach(item => {
-        marqueeContent.appendChild(item);
-      });
-    };
+      clonedItems.forEach((item) => {
+        marqueeContent.appendChild(item)
+      })
+    }
 
-    cloneContent();
-  }, []);
+    cloneContent()
+  }, [])
 
   return (
     <div className="marquee-wrapper">
@@ -38,5 +36,8 @@ export function SkillsMarquee({ skills }: SkillsMarqueeProps) {
         ))}
       </div>
     </div>
-  );
+  )
 }
+
+// Named export for compatibility
+export { SkillsMarquee as default }

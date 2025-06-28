@@ -1,18 +1,19 @@
-"use client";
+"use client"
 
-import { useEffect, useRef } from "react";
-import { motion } from "framer-motion";
-import gsap from "gsap";
+import { useEffect, useRef } from "react"
+import { motion } from "framer-motion"
+import gsap from "gsap"
 
 export function AnimatedLogo() {
-  const logoRef = useRef<HTMLDivElement>(null);
+  const logoRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    if (!logoRef.current) return;
+    if (!logoRef.current) return
 
-    const letters = logoRef.current.querySelectorAll(".logo-letter");
+    const letters = logoRef.current.querySelectorAll(".logo-letter")
 
-    gsap.fromTo(letters,
+    gsap.fromTo(
+      letters,
       { y: 100, opacity: 0 },
       {
         y: 0,
@@ -20,10 +21,10 @@ export function AnimatedLogo() {
         stagger: 0.1,
         duration: 0.8,
         ease: "power3.out",
-        delay: 0.2
-      }
-    );
-  }, []);
+        delay: 0.2,
+      },
+    )
+  }, [])
 
   return (
     <div className="logo-wrapper" ref={logoRef}>
@@ -39,5 +40,8 @@ export function AnimatedLogo() {
         <div className="logo-letter">A</div>
       </motion.div>
     </div>
-  );
+  )
 }
+
+// Named export for compatibility
+export { AnimatedLogo as default }

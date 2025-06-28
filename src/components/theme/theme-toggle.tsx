@@ -1,28 +1,23 @@
-"use client";
+"use client"
 
-import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
+import { useTheme } from "next-themes"
+import { useEffect, useState } from "react"
+import { Sun, Moon } from "lucide-react"
 
 export function ThemeToggle() {
-  const { theme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
+  const { theme, setTheme } = useTheme()
+  const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
-    setMounted(true);
-  }, []);
+    setMounted(true)
+  }, [])
 
   if (!mounted) {
     return (
       <button className="switch-wrapper" aria-label="Toggle theme">
-        <img
-          src="https://ext.same-assets.com/4083826418/3962489012.svg"
-          alt=""
-          width={20}
-          height={20}
-          style={{ width: '20px', height: '20px' }}
-        />
+        <Sun className="h-5 w-5" />
       </button>
-    );
+    )
   }
 
   return (
@@ -32,16 +27,7 @@ export function ThemeToggle() {
       onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
       data-cursor-hover
     >
-      <img
-        src={theme === "dark"
-          ? "https://ext.same-assets.com/4083826418/3962489012.svg"
-          : "https://ext.same-assets.com/4083826418/3962489012.svg"
-        }
-        alt=""
-        width={20}
-        height={20}
-        style={{ width: '20px', height: '20px' }}
-      />
+      {theme === "dark" ? <Moon className="h-5 w-5" /> : <Sun className="h-5 w-5" />}
     </button>
-  );
+  )
 }
