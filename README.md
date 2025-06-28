@@ -1,40 +1,39 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Sal Costa Portfolio Clone
+
+This project replicates [Sal Costa](https://example.com)'s personal portfolio using **Next.js** and **TypeScript**. It showcases WebGL particle animations and provides a Progressive Web App experience through an advanced service worker.
+
+## Features
+
+- **WebGL Particle Background** with a graceful DOM fallback for browsers without WebGL 2 support.
+- **Service Worker** caching strategies for offline access, including network-first and cache-first rules, plus optional background sync.
+- **Offline & Network Indicators** to inform users when connectivity changes or a new version is available.
+- **Tailwind CSS** with shadcn/ui components for styling.
 
 ## Getting Started
 
-First, run the development server:
+Install dependencies and start the development server:
 
-\`\`\`bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-\`\`\`
+```bash
+bun install
+bun run dev
+```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open `http://localhost:3000` in your browser to view the site. The service worker does not register in development unless explicitly enabled.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Building for Production
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+bun run build
+bun run start
+```
 
-## Learn More
+## Environment Variables
 
-To learn more about Next.js, take a look at the following resources:
+- `NEXT_PUBLIC_SW_ENABLED`: set to `true` to force service worker registration during development. In production the worker is registered automatically.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Deployment
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-# sal-costa-clone
+The repository contains a `netlify.toml` configuration. Netlify runs `bun run build` and publishes the `.next` directory. You can also deploy to any platform that supports Next.js by running the build and serving the output with `bun run start`.
 
 ## License
 
