@@ -1,37 +1,34 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Sal Costa Clone
 
-## Getting Started
+This repository contains a recreation of **Sali Cost's** personal portfolio. It leverages modern React tooling to showcase interactive animations, WebGL backgrounds and a responsive design.
 
-First, run the development server:
+## Technologies
 
-\`\`\`bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-\`\`\`
+- **Next.js 15** with React 19
+- **TypeScript**
+- **Tailwind CSS** and Radix UI components
+- **Framer Motion** and **GSAP** for animations
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The project can be run using either `pnpm` or `bun`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Local development
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+pnpm install   # or `bun install`
+pnpm dev       # or `bun run dev`
+```
 
-## Learn More
+Open [http://localhost:3000](http://localhost:3000) in your browser to see the result.
 
-To learn more about Next.js, take a look at the following resources:
+## Building for production
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+pnpm run build # or `bun run build`
+pnpm start     # or `bun run start`
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+A Netlify configuration is included for easy deployment.
 
-## Deploy on Vercel
+## Progressive Web App
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-# sal-costa-clone
+The site is installable as a PWA. The `public/manifest.json` file defines icons and metadata, while `public/sw.js` implements a service worker that caches static assets, handles offline navigation and supports background sync and push notifications.
